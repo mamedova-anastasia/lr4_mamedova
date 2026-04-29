@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"> <!-- это кодировка страницы -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- это для адаптивности страницы -->
+    <title>Task Tracker</title> <!-- это заголовок вкладки -->
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> <!-- это подключение bootstrap, чтобы не писать css -->
+
+  </head>
+  <body>
+    {% csrf_token %}
+      <div class="container">
+        <br>
+        <h2><strong>Task Tracker Мамедова А.А. 📝</strong></h2> <!-- это заголовок страницы -->
+
+        <br>
+
+         <ul class="list-group"> <!-- это список задач -->
+
+            <li class="list-group-item mb-2"> <!-- это элемент списка -->
+              1. Проснуться.
+            </li> 
+            <li class="list-group-item mb-2">
+              2. Позавтракать.
+            </li> 
+            <li class="list-group-item mb-2">
+              3. Приехать в университет.
+            </li> 
+            <li class="list-group-item mb-2">
+              4. Провести дейли.
+            </li>
+            <li class="list-group-item mb-2">
+              5. Пойти на пары.
+            </li>
+            <li class="list-group-item mb-2">
+              6. Пойти на обед.
+            </li>
+            <li class="list-group-item mb-2">
+              7. Пойти на работу.
+            </li>
+            <li class="list-group-item mb-2">
+              8. Тренировка.
+            </li>
+            <li class="list-group-item mb-2">
+              9. Выполнение лабы.
+            </li>
+
+        </ul>
+
+
+
+      </div>
+
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> <!-- это подключение bootstrap, чтобы не писать js -->
+
+
+
+  </body>
+</html>
