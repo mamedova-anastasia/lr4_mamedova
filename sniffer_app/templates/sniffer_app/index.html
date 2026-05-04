@@ -29,16 +29,20 @@
    Учебный проект. Свободное использование.
 
  АВТОР:
-   Мамедова А.А., группа КП-23-17
-============================================================
--->
+   Мамедова А.А., группа КП-23-17 -->
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- Кодировка страницы — UTF-8 для корректного отображения русского текста -->
     <meta charset="UTF-8">
+    <!-- Адаптивный вьюпорт для корректного отображения на мобильных устройствах -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Заголовок страницы -->
     <title>Контейнер сниффера 802.11 — Дашборд</title>
+    <!-- Подключение Bootstrap CSS через CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Внутренние стили для улучшения визуального оформления -->
     <style>
         body { background-color: #f4f6f9; padding-bottom: 40px; }
         .header-bar {
@@ -61,19 +65,25 @@
     </style>
 </head>
 <body>
+    <!-- Основной контейнер страницы -->
 <div class="container mt-4">
 
+    <!-- Заголовок страницы -->
     <div class="header-bar text-center">
         <h2>📡 Контейнер сниффера 802.11</h2>
+        <!-- Информация о сети -->
         <p class="mb-0">AP MAC: <strong>{{ ap_mac }}</strong> | SSID: <strong>{{ ssid }}</strong></p>
         <p class="mb-0 small">Симуляция перехвата и анализа управляющих кадров (deauth-атаки)</p>
     </div>
 
+    <!--При нажатии отправляет GET-запрос к представлению dashboard, генерируя новые данные -->
     <div class="text-end mb-3">
         <a href="{% url 'dashboard' %}" class="btn btn-primary">🔄 Запустить новую симуляцию</a>
     </div>
 
+    <!-- Статистические блоки -->
     <div class="row mb-4">
+        <!-- Блоки с количеством кадров каждого типа -->
         <div class="col-md-3">
             <div class="stat-box ok"><div class="number">{{ ok_count }}</div><div class="label">Легитимные (OK)</div></div>
         </div>
@@ -88,13 +98,16 @@
         </div>
     </div>
 
+    <!-- графики и таблицы -->
     <div class="row">
+        <!-- График 1: Столбчатая диаграмма "Статусы по принтерам" -->
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-white">📊 Статусы по принтерам</div>
                 <div class="card-body text-center"><img src="{{ charts.printer_stats }}" class="chart-img"></div>
             </div>
         </div>
+        <!-- График 2: Круговая диаграмма "Соотношение статусов" -->
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-white">🥧 Соотношение статусов</div>
@@ -104,6 +117,7 @@
     </div>
 
     <div class="row">
+        <!-- График 3: Линейный график "Атаки по принтерам" -->
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-white">🚨 Атаки по принтерам</div>
@@ -112,18 +126,21 @@
         </div>
     </div>
 
+    <!-- Таблица 1: все кадры -->
     <div class="card">
         <div class="card-header bg-white">📋 Таблица 1: Все кадры</div>
         <div class="card-body table-responsive">{{ table_all|safe }}</div>
     </div>
 
     <div class="row">
+        <!-- Таблица 2: Статистика по принтерам -->
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-white">📋 Таблица 2: Статистика по принтерам</div>
                 <div class="card-body table-responsive">{{ table_printer|safe }}</div>
             </div>
         </div>
+        <!-- Таблица 3: Итого по статусам -->
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-white">📋 Таблица 3: Итого по статусам</div>
@@ -133,6 +150,7 @@
     </div>
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> <!-- Подключение Bootstrap JS через CDN -->
 </body>
 </html>
