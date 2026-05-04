@@ -1,5 +1,6 @@
-run = ["python", "manage.py", "runserver", "0.0.0.0:3000"]
-entrypoint = "manage.py"
+run = "python manage_sniffer.py migrate --run-syncdb && python manage_sniffer.py runserver 0.0.0.0:8000"
+
+entrypoint = "manage_sniffer.py"
 modules = ["python-3.10:v18-20230807-322e88b"]
 
 hidden = [".pythonlibs"]
@@ -11,11 +12,11 @@ channel = "stable-24_05"
 language = "python3"
 
 [deployment]
-run = ["python", "manage.py", "runserver", "0.0.0.0:3000"]
+run = ["sh", "-c", "python manage_sniffer.py migrate --run-syncdb && python manage_sniffer.py runserver 0.0.0.0:8000"]
 deploymentTarget = "gce"
 
 [[ports]]
-localPort = 3000
+localPort = 8000
 externalPort = 80
 
 [agent]

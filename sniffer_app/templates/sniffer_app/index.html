@@ -1,0 +1,138 @@
+<!--
+============================================================
+ index.html — Дашборд контейнера сниффера 802.11
+============================================================
+
+ НАЗНАЧЕНИЕ:
+   Веб-интерфейс для отображения результатов симуляции
+   контейнера безопасности, обнаруживающего deauth-атаки
+   на сетевые принтеры в беспроводной сети Wi-Fi.
+
+ ИСПОЛЬЗУЕМЫЕ ПЕРЕМЕННЫЕ ШАБЛОНА (контекст Django):
+   {{ ap_mac }}               — MAC-адрес точки доступа
+   {{ ssid }}                 — имя беспроводной сети
+   {{ ok_count }}             — количество OK
+   {{ warn_count }}           — количество WARN
+   {{ blocked_count }}        — количество BLOCKED
+   {{ total_frames }}         — всего кадров
+   {{ table_all }}            — таблица всех кадров
+   {{ table_printer }}        — статистика по принтерам
+   {{ table_status }}         — итоги по статусам
+   {{ charts.printer_stats }} — URL графика 1
+   {{ charts.status_pie }}    — URL графика 2
+   {{ charts.attacks_by_printer }} — URL графика 3
+
+ ЗАВИСИМОСТИ:
+   - Bootstrap 5 (CDN)
+
+ ЛИЦЕНЗИЯ:
+   Учебный проект. Свободное использование.
+
+ АВТОР:
+   Мамедова А.А., группа КП-23-17
+============================================================
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контейнер сниффера 802.11 — Дашборд</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f6f9; padding-bottom: 40px; }
+        .header-bar {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white; padding: 20px; border-radius: 10px; margin-bottom: 25px;
+        }
+        .card {
+            border: none; border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px;
+        }
+        .card-header { font-weight: bold; border-radius: 10px 10px 0 0 !important; }
+        .stat-box { text-align: center; padding: 20px; border-radius: 10px; color: white; }
+        .stat-box.ok { background-color: #2e7d32; }
+        .stat-box.warn { background-color: #e65100; }
+        .stat-box.blocked { background-color: #c62828; }
+        .stat-box .number { font-size: 2.5em; font-weight: bold; }
+        .stat-box .label { font-size: 0.9em; opacity: 0.9; }
+        img.chart-img { max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0; }
+        .table { font-size: 0.9em; }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+
+    <div class="header-bar text-center">
+        <h2>📡 Контейнер сниффера 802.11</h2>
+        <p class="mb-0">AP MAC: <strong>{{ ap_mac }}</strong> | SSID: <strong>{{ ssid }}</strong></p>
+        <p class="mb-0 small">Симуляция перехвата и анализа управляющих кадров (deauth-атаки)</p>
+    </div>
+
+    <div class="text-end mb-3">
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">🔄 Запустить новую симуляцию</a>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stat-box ok"><div class="number">{{ ok_count }}</div><div class="label">Легитимные (OK)</div></div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-box warn"><div class="number">{{ warn_count }}</div><div class="label">Предупреждения (WARN)</div></div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-box blocked"><div class="number">{{ blocked_count }}</div><div class="label">Заблокировано (BLOCKED)</div></div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-box bg-secondary"><div class="number">{{ total_frames }}</div><div class="label">Всего кадров</div></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-white">📊 Статусы по принтерам</div>
+                <div class="card-body text-center"><img src="{{ charts.printer_stats }}" class="chart-img"></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-white">🥧 Соотношение статусов</div>
+                <div class="card-body text-center"><img src="{{ charts.status_pie }}" class="chart-img"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-white">🚨 Атаки по принтерам</div>
+                <div class="card-body text-center"><img src="{{ charts.attacks_by_printer }}" class="chart-img"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-white">📋 Таблица 1: Все кадры</div>
+        <div class="card-body table-responsive">{{ table_all|safe }}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-white">📋 Таблица 2: Статистика по принтерам</div>
+                <div class="card-body table-responsive">{{ table_printer|safe }}</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-white">📋 Таблица 3: Итого по статусам</div>
+                <div class="card-body table-responsive">{{ table_status|safe }}</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
