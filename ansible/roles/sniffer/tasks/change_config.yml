@@ -1,0 +1,14 @@
+---
+- name: Изменить порог Deauth_threshold
+  copy:
+    content: |
+      # Конфигурация сниффера (изменена через Ansible)
+      AP_MAC = "AA:BB:CC:DD:EE:FF"
+      SSID = "OfficeNet_5G"
+      Deauth_threshold = {{ new_threshold }}
+    dest: /tmp/sniffer_demo/config.py
+    mode: '0644'
+
+- name: Показать новое значение порога
+  debug:
+    msg: "Порог Deauth_threshold изменён на {{ new_threshold }}. Конфигурация обновлена на всех серверах."

@@ -1,0 +1,27 @@
+---
+- name: Изменить конфигурацию сниффера на всех серверах
+  hosts: sniffer_servers
+  gather_facts: no
+
+  vars:
+    new_threshold: 5
+
+  tasks:
+    - name: Создать директорию для конфигурации
+      command: mkdir -p /tmp/sniffer_demo
+      args:
+        creates: /tmp/sniffer_demo
+
+    - name: Обновить файл конфигурации с новым порогом
+      copy:
+        content: |
+          # Конфигурация сниффера (обновлена через Ansible)
+          AP_MAC = "AA:BB:CC:DD:EE:FF"
+          SSID = "OfficeNet_5G"
+          Deauth_threshold = {{ new_threshold }}
+        dest: /tmp/sniffer_demo/config.py
+        mode: '0644'
+
+    - name: Вывести сообщение об изменении
+      debug:
+        msg: "КОНФИГУРАЦИЯ ИЗМЕНЕНА! Порог Deauth_threshold был 3, стал {{ new_threshold }}. Изменение применено на всех 1000 серверах."
