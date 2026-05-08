@@ -1,0 +1,15 @@
+---
+- name: Создать директорию для сниффера
+  command: mkdir -p /tmp/sniffer_demo
+  args:
+    creates: /tmp/sniffer_demo
+
+- name: Разместить основной скрипт сниффера
+  copy:
+    src: "{{ playbook_dir }}/../../sniffer.py"
+    dest: /tmp/sniffer_demo/sniffer.py
+    mode: '0755'
+
+- name: Вывести сообщение об успешном развертывании
+  debug:
+    msg: "Развертывание контейнера-сниффера успешно завершено! Демонстрация работы Ansible."

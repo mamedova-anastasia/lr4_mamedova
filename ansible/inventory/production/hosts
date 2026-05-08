@@ -1,0 +1,5 @@
+[sniffer_servers]
+localhost ansible_connection=local
+
+[sniffer_servers:vars]
+ansible_python_interpreter=auto

@@ -1,0 +1,6 @@
+# Шаблон docker-compose.yml (для демонстрации)
+version: '3.8'
+services:
+  sniffer-app:
+    image: "mamedova/sniffer:{{ sniffer_version }}"
+    restart: unless-stopped

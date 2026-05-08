@@ -1,0 +1,8 @@
+---
+sniffer_version: "3.0.0"
+sniffer_install_path: "/opt/sniffer"
+sniffer_env:
+  AP_MAC: "AA:BB:CC:DD:EE:FF"
+  SSID: "OfficeNet_5G"
+  Deauth_threshold: "3"
+sniffer_port: 8000

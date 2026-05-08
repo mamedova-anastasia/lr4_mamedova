@@ -1,4 +1,4 @@
-run = "python manage_sniffer.py migrate --run-syncdb && python manage_sniffer.py runserver 0.0.0.0:8000"
+run = ["python manage_sniffer.py migrate --run-syncdb && python manage_sniffer.py runserver 0.0.0.0:8000"]
 
 entrypoint = "manage_sniffer.py"
 modules = ["python-3.10:v18-20230807-322e88b"]
@@ -21,3 +21,27 @@ externalPort = 80
 
 [agent]
 expertMode = true
+
+# run = ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+
+# entrypoint = "manage.py"  
+# modules = ["python-3.10:v18-20230807-322e88b"]
+
+# hidden = [".pythonlibs"]
+
+# [nix]
+# channel = "stable-24_05"
+
+# [unitTest]
+# language = "python3"
+
+# [deployment]
+# run = ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+# deploymentTarget = "gce"
+
+# [[ports]]
+# localPort = 8000
+# externalPort = 80
+
+# [agent]
+# expertMode = true

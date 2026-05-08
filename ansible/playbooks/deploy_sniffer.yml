@@ -1,0 +1,8 @@
+---
+- name: Развернуть и настроить контейнер-сниффер 802.11
+  hosts: sniffer_servers
+  become: no
+  gather_facts: no
+
+  roles:
+   - role: sniffer
